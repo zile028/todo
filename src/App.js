@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Header from "./component/Header";
+export const addTaskContext = React.createContext();
 
 function App() {
   const [task, setTask] = useState([
@@ -11,11 +13,9 @@ function App() {
       done: true,
     },
   ]);
-  const [newTask, setNewTask] = useState("");
 
-  const addTask = () => {
-    setTask([...task, { task: newTask, done: false }]);
-    setNewTask("");
+  const addTask = (arg) => {
+    setTask([...task, { task: arg, done: false }]);
   };
 
   const removeTask = (el) => {
@@ -32,62 +32,53 @@ function App() {
 
   return (
     <main>
-      <header className="jumbotron text-center">
-        <h1>My Task</h1>
-        <div className="container">
-          <div className="row">
-            <input
-              type="text"
-              className="col-5 offset-3"
-              onChange={(e) => setNewTask(e.target.value)}
-              value={newTask}
-            />
-            <button className="btn btn-warning col-1" onClick={addTask}>
-              Add task
-            </button>
-          </div>
-        </div>
-      </header>
+      <addTaskContext.Provider value={addTask}>
+        <Header />
+      </addTaskContext.Provider>
       <section className="container">
-        {task.map((el, index) => {
-          return (
-            <div className="card mb-3" key={index}>
-              <div className="card-header">{el.task}</div>
-              <div className="card-body">
-                {el.done ? "Urađen" : "Nije urađen"}
+        <div className="row">
+          {task.map((el, index) => {
+            return (
+              <div className="col-4">
+                <div className="card mb-3" key={index}>
+                  <div className="card-header">{el.task}</div>
+                  <div className="card-body">
+                    {el.done ? "Urađen" : "Nije urađen"}
+                  </div>
+                  <div className="card-footer">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        removeTask(index);
+                      }}
+                    >
+                      Remove
+                    </button>
+                    {el.done ? (
+                      <button
+                        className="btn btn-success"
+                        onClick={() => {
+                          changeStatus(index);
+                        }}
+                      >
+                        Otkaži
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-warning"
+                        onClick={() => {
+                          changeStatus(index);
+                        }}
+                      >
+                        Urađeno
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="card-footer">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    removeTask(index);
-                  }}
-                >
-                  Remove
-                </button>
-                {el.done ? (
-                  <button
-                    className="btn btn-success"
-                    onClick={() => {
-                      changeStatus(index);
-                    }}
-                  >
-                    Otkaži
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => {
-                      changeStatus(index);
-                    }}
-                  >
-                    Urađeno
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </section>
     </main>
   );

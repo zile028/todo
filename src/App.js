@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import AllTask from "./component/AllTask";
 import Header from "./component/Header";
+import Task from "./component/Task";
 export const addTaskContext = React.createContext();
+export const taskContext = React.createContext();
 
 function App() {
   const [task, setTask] = useState([
@@ -35,9 +38,12 @@ function App() {
       <addTaskContext.Provider value={addTask}>
         <Header />
       </addTaskContext.Provider>
-      <section className="container">
-        <div className="row">
-          {task.map((el, index) => {
+
+      <taskContext.Provider value={task}>
+        <AllTask />
+      </taskContext.Provider>
+
+      {/* {task.map((el, index) => {
             return (
               <div className="col-4">
                 <div className="card mb-3" key={index}>
@@ -77,9 +83,7 @@ function App() {
                 </div>
               </div>
             );
-          })}
-        </div>
-      </section>
+          })} */}
     </main>
   );
 }

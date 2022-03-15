@@ -1,0 +1,18 @@
+.card {
+  backface-visibility: hidden;
+  animation-name: flip;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+  perspective: 1200;
+  transform: rotateY(180deg);
+  animation-fill-mode: forwards;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}

@@ -5,7 +5,7 @@ function Header() {
   const addTask = useContext(addTaskContext);
   const [newTask, setNewTask] = useState("");
   const add = () => {
-    if (newTask != "") {
+    if (newTask !== "") {
       addTask(newTask);
       setNewTask("");
     }

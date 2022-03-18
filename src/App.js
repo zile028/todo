@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AllTask from "./component/AllTask";
 import Header from "./component/Header";
-import Task from "./component/Task";
 export const addTaskContext = React.createContext();
 export const taskContext = React.createContext();
+export const actionContext = React.createContext();
 
 function App() {
   const [task, setTask] = useState([
@@ -33,6 +33,12 @@ function App() {
     setTask(taskCopy);
   };
 
+  const taskAction = {
+    add: addTask,
+    remove: removeTask,
+    change: changeStatus,
+  };
+
   return (
     <main>
       <addTaskContext.Provider value={addTask}>
@@ -40,7 +46,9 @@ function App() {
       </addTaskContext.Provider>
 
       <taskContext.Provider value={task}>
-        <AllTask />
+        <actionContext.Provider value={taskAction}>
+          <AllTask />
+        </actionContext.Provider>
       </taskContext.Provider>
 
       {/* {task.map((el, index) => {

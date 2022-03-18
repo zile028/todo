@@ -1,11 +1,12 @@
 import React from "react";
 
-function Button({ btn }) {
+function Button({ btn, index, taskAction }) {
   const removeTask = (el) => {
-    console.log(el);
+    taskAction.remove(el);
   };
-  const changeStatus = (params) => {};
-
+  const changeStatus = (el) => {
+    taskAction.change(el);
+  };
   const btnType = {
     remove: {
       class: "btn btn-danger",
@@ -28,7 +29,7 @@ function Button({ btn }) {
     <button
       className={btnType[btn].class}
       onClick={() => {
-        btnType[btn].action(5);
+        btnType[btn].action(index);
       }}
     >
       {btnType[btn].title}

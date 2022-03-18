@@ -4,8 +4,10 @@ import "./Task.css";
 
 function Task({ taskInfo }) {
   let status = "Nije uradjeno";
+  let btnType = "done";
   if (taskInfo.done) {
     status = "Uradjeno";
+    btnType = "cancle";
   }
 
   return (
@@ -14,7 +16,8 @@ function Task({ taskInfo }) {
         <div className="card-header">{taskInfo.task}</div>
         <div className="card-body">{status}</div>
         <div className="card-footer">
-          <Button />
+          <Button btn={"remove"} />
+          <Button btn={btnType} />
         </div>
       </div>
     </div>

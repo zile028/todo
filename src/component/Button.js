@@ -1,15 +1,37 @@
 import React from "react";
 
-function Button() {
+function Button({ btn }) {
+  const removeTask = (el) => {
+    console.log(el);
+  };
   const changeStatus = (params) => {};
+
+  const btnType = {
+    remove: {
+      class: "btn btn-danger",
+      action: removeTask,
+      title: "Remove",
+    },
+    cancle: {
+      class: "btn btn-warning",
+      action: changeStatus,
+      title: "Otkaži",
+    },
+    done: {
+      class: "btn btn-success",
+      action: changeStatus,
+      title: "Urađeno",
+    },
+  };
+
   return (
     <button
-      className="btn btn-success"
+      className={btnType[btn].class}
       onClick={() => {
-        changeStatus(1);
+        btnType[btn].action(5);
       }}
     >
-      Otkaži
+      {btnType[btn].title}
     </button>
   );
 }
